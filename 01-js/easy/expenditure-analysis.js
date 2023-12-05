@@ -9,7 +9,31 @@
 */
 
 function calculateTotalSpentByCategory(transactions) {
-  return [];
+  const expenses = new Map();
+
+  // Iterate through transactions and accumulate total spent for each category
+  for (const txn of transactions) {
+    const category = txn.category;
+    const price = parseFloat(txn.price);
+
+    if (!isNaN(price) && category !== undefined) {
+      if (expenses.has(category)) {
+        expenses.set(category, expenses.get(category) + price);
+      } else {
+        expenses.set(category, price);
+      }
+    }
+  }
+
+  // Create the result array with unique categories and filter out undefined or NaN values
+  const result = Array.from(expenses, ([category, totalSpent]) => ({
+    category,
+    totalSpent,
+  })).filter(
+    (entry) => entry.category !== undefined && !isNaN(entry.totalSpent)
+  );
+
+  return result;
 }
 
 module.exports = calculateTotalSpentByCategory;

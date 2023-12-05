@@ -8,5 +8,11 @@ Hint - use Date class exposed in JS
 */
 
 function calculateTime(n) {
-    return 0.01;
+  const ts1 = new Date().toLocaleTimeString();
+  let sum = 0;
+  for (let i = 1; i <= n; i++) {
+    sum = sum + i;
+  }
+  const ts2 = new Date().toLocaleTimeString();
+  return ts2 - ts1;
 }
